@@ -202,22 +202,22 @@ end
 
 local function testClaimsPairContent()
 	local testItem = getNewTestItem();
-	concatenatedClaims = ""
+	claimsTable = {}
 	for a,b in pairs(testItem['claims']) do
-		concatenatedClaims =  concatenatedClaims .. a
+		claimsTable[a] = ""
 	end
-	return concatenatedClaims
+	return claimsTable
 end
 
 local function testClaimsNewIndex()
 	local entity = mw.wikibase.getEntityObject( 'Q32487' )
 	entity['claims']['P321'] = ""
-	concatenatedClaims = ""
+	claimsTable = {}
 	for a,b in pairs(entity['claims']) do
-		concatenatedClaims =  concatenatedClaims .. a
+		claimsTable[a]=""
 	end
 
-	return concatenatedClaims
+	return claimsTable
 end
 
 
@@ -231,10 +231,10 @@ local tests = {
 	  expect = { 1 }
 	},
 	{ name = 'mw.wikibase.testClaimsPairContent', func = testClaimsPairContent,
-	  expect = { "P4321P321"}, 
+	  expect = { {P321="",P4321=""},}
 	},
 	{ name = 'mw.wikibase.testClaimsNewIndex', func = testClaimsNewIndex,
-	  expect = {"P321P342"}
+	  expect = {{P321="",P342=""},}
 	},
 	{ name = 'mw.wikibase.entity.create 1', func = testCreate,
 	  args = { {} },
